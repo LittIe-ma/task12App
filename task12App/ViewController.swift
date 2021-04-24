@@ -13,21 +13,18 @@ class ViewController: UIViewController {
     @IBOutlet private weak var taxRateField: UITextField!
     @IBOutlet private weak var taxIncludedLabel: UILabel!
 
+    private static let taxRateTextKey = "taxRateText"
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let text = UserDefaults.standard.string(forKey: "text") {
-            self.taxRateField.text = text
+        if let text = UserDefaults.standard.string(forKey: Self.taxRateTextKey) {
+            taxRateField.text = text
         }
     }
 
     private func taxRateCalculator(n: Double) -> Double {
-
-        var tax: Double
-
-        tax = n / 100 + 1
-
-        return tax
+        n / 100 + 1
     }
 
     @IBAction func didTapButton(_ sender: Any) {
@@ -39,7 +36,7 @@ class ViewController: UIViewController {
 
         taxIncludedLabel.text = "\(result)"
 
-        UserDefaults.standard.set(self.taxRateField.text, forKey: "text")
+        UserDefaults.standard.set(taxRateField.text, forKey: Self.taxRateTextKey)
     }
 }
 
